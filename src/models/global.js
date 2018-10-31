@@ -51,7 +51,7 @@ export default {
         ...state,
         notices: state.notices.filter(item => item.type !== payload),
       };
-    },
+    }
   },
 
   subscriptions: {

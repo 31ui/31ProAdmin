@@ -1,23 +1,17 @@
-// import { routerRedux } from 'dva/router';
-import executeS from '@/services/executeS';
 
 export default {
-  namespace: 'systemRoles',
+  namespace: 'common',
   state: {
-    modalVisible: false,
-    records:[]
-  },
-  effects: {
-    *query(_, { call, put }) {
-      const response = yield call(executeS, { apixkey: 'queryRolesList' });
-      if (response.code === 200 ) {
-        yield put({
-          type: 'querySuccess',
-          payload:  response.data
-        });
-      }
+    records: [],
+    pagination: {
+      showSizeChanger: true,
+      showQuickJumper: true,
+      showTotal: total => `共 ${total} 条 `,
+      current: 1,
+      total: 0,
     },
   },
+
   reducers: {
     updateState (state, { payload }) {
       return {
@@ -32,7 +26,7 @@ export default {
         pagination: {
           ...state.pagination,
           current: Number(page_no) || 1,
-          pageSize: Number(page_size) || 10,
+          pageSize: Number(page_size) || 1,
           total: Number(total_count) || 0,
         },
       }
@@ -41,6 +35,5 @@ export default {
         ...data,
       };
     },
-
   },
 };

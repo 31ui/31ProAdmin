@@ -12,7 +12,8 @@ import styles from './index.less';
 // const DirectoryTree = Tree.DirectoryTree;
 // const TreeNode = Tree.TreeNode;
 
-@connect(({ systemRoles, loading }) => ({
+@connect(({common, systemRoles, loading }) => ({
+  common,
   systemRoles,
   loading,
 }))
@@ -21,10 +22,11 @@ class systemRolesLayout extends PureComponent {
     super(props);
     this.state = {
       modalType: 'createRole',
+      modalDataSource: {}
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
       type: 'systemRoles/query',
@@ -90,7 +92,7 @@ class systemRolesLayout extends PureComponent {
     }
   };
 
-  editFn = () => {
+  editFn = (record) => {
     const { dispatch } = this.props;
     dispatch({
       type: 'systemRoles/updateState',
@@ -100,15 +102,15 @@ class systemRolesLayout extends PureComponent {
     });
     this.setState({
       modalType: 'updateRole',
+      modalDataSource: record
     });
   };
 
   render() {
     const {
-      systemRoles: { data, modalVisible },
+      systemRoles:{records, pagination, modalVisible}
     } = this.props;
-    const { modalType } = this.state;
-
+    const { modalType,modalDataSource } = this.state;
     const columns = [
       {
         title: '序号',
@@ -128,9 +130,9 @@ class systemRolesLayout extends PureComponent {
       },
       {
         title: '操作',
-        render: () => (
+        render: (record) => (
           <Fragment>
-            <a onClick={this.editFn}>
+            <a onClick={()=>{this.editFn(record)}}>
               <Icon type="edit" />
               修改
             </a>
@@ -158,10 +160,7 @@ class systemRolesLayout extends PureComponent {
       visible: modalVisible,
       onCancel: this.onModalCancel,
       onOk: this.handleSubmit,
-      dataSource: {
-        roleName: '',
-        remark: '',
-      },
+      dataSource: modalDataSource
     };
     return (
       <PageHeaderWrapper title="系统角色管理">
@@ -177,9 +176,8 @@ class systemRolesLayout extends PureComponent {
               rowKey={record => record.id}
               loading={false}
               columns={columns}
-              // dataSource={data.list}
-              // onSelectRow={this.handleSelectRows}
-              // onChange={this.handleStandardTableChange}
+              dataSource={records}
+              pagination={pagination}
             />
           </div>
         </Card>

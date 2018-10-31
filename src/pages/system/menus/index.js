@@ -4,7 +4,6 @@ import { Card, Row, Col, Tree, Button } from 'antd';
 
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import FromBasic from './fromBasic';
-import ModalLayout from './modal';
 
 import styles from './index.less';
 
@@ -12,7 +11,7 @@ const DirectoryTree = Tree.DirectoryTree;
 const TreeNode = Tree.TreeNode;
 
 @connect(({ systemMenus }) => ({
-  systemMenus,
+  systemMenus
 }))
 class systemMenuLayout extends Component {
   constructor(props) {
@@ -168,7 +167,7 @@ class systemMenuLayout extends Component {
             </div>
           </Col>
         </Row>
-        <ModalLayout {...ModalProps} />
+        
       </PageHeaderWrapper>
     );
   }

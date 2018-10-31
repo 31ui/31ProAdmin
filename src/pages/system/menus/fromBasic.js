@@ -6,7 +6,7 @@ const Option = Select.Option;
 const RadioGroup = Radio.Group;
 
 @Form.create()
-export default class FromBasic extends Component {
+class FromBasic extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -100,3 +100,4 @@ export default class FromBasic extends Component {
     );
   }
 }
+export default FromBasic

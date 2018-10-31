@@ -1,20 +1,19 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Form, Input } from 'antd';
 import ModalLayout from '@/components/HocModal';
 
 const FormItem = Form.Item;
 
 @Form.create()
-class FromBasic extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...props,
-    };
-  }
-
+class FromBasic extends PureComponent {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     ...props,
+  //   };
+  // }
   render() {
-    const { dataSource, form } = this.state;
+    const { dataSource, form } = this.props;
     const { getFieldDecorator } = form;
     const formItemLayout = {
       labelCol: {
